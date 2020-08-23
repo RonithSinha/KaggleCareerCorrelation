@@ -145,8 +145,8 @@ def create_kaggle_users_dataframe(section):
             processed_data=process_data(raw_data)
             individual_users_dataframe=individual_users_dataframe.append(processed_data,ignore_index=True)
             print('Successfully inserted data')
-        except KeyboardInterrupt as stop_cell:
-            print('Stopping the cell')
+        except KeyboardInterrupt:
+            print('Stopping execution of the program')
             break
         except Exception as Error:
             print('Error in creating users dataframe')
