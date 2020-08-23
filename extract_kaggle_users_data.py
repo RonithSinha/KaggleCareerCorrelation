@@ -161,6 +161,6 @@ if __name__ == "__main__":
         if section not in ['competitions','notebooks','datasets','discussion']:
             error_message=f"Invalid section name '{section}'. Please enter either of the following: competitions,notebooks,datasets,discussion"
             raise InvalidSectionName(error_message)
-        #create_kaggle_users_dataframe(section=section)
+        create_kaggle_users_dataframe(section=section)
     except KeyboardInterrupt:
         print('Stopping execution of the program')
