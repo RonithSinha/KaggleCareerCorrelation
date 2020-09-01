@@ -23,7 +23,7 @@ class skip_profile(Exception):
 
 class stop_program_execution(Exception):
 	def __init__(self):
-		print('Stopping execution of the program')
+		print('Exception occured: Stopping execution of the program')
 
 def manage_exception(Error):
 	_, _, exception_traceback = sys.exc_info()
@@ -98,7 +98,7 @@ class extract_linkedin_data:
 		chrome_options.add_argument('--no-sandbox')
 		chrome_options.add_argument('--disable-dev-shm-usage')
 		'''
-		driver=webdriver.Chrome(executable_path='/home/ronith/anaconda3/bin/chromedriver')
+		driver=webdriver.Chrome(executable_path='/usr/bin/chromedriver')
 		self.driver=driver
 
 	#initialize Chrome WebDriver and sign in into LinkedIn.
@@ -111,7 +111,7 @@ class extract_linkedin_data:
 			self.click_buttons(self.driver,xpath_value=f'//a[@class="{class_name}"]')
 			
 			WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.ID,'username')))
-			email='ronithsinha16@gmail.com'
+			email='ronithsinha17@gmail.com'
 			password='Thirdpass123@'
 			
 			input_email_id=self.find_nth_child(self.driver,xpath_value='//input[@id="username"]',child_index=0)
@@ -405,7 +405,7 @@ class extract_linkedin_data:
 			skills_and_endorsements_section_xpath_value='//section[contains(@class,"pv-skill-categories-section")]'
 			skills_and_endorsements_section_found=self.check_elements_by_xpath(self.driver,skills_and_endorsements_section_xpath_value)
 			if skills_and_endorsements_section_found==1:
-				skills_and_endorsements_element=find_nth_child(self.driver,skills_and_endorsements_section_xpath_value,0)
+				skills_and_endorsements_element=self.find_nth_child(self.driver,skills_and_endorsements_section_xpath_value,0)
 				self.click_buttons(skills_and_endorsements_element,xpath_value='.//button[@aria-expanded="false"]')
 				skills_list=self.get_element_text(skills_and_endorsements_element,xpath_value='.//span[contains(@class,"pv-skill-category-entity__name-text")]')
 				#print('Skills List')
@@ -567,9 +567,9 @@ class extract_linkedin_data:
 			#print('Accomplishments Section')
 			required_data={}
 			accomplishment_section_xpath_value='//section[contains(@class,"pv-accomplishments-section")]'
-			accomplishment_section_found=self.check_elements_by_xpath(accomplishment_section_xpath_value)
+			accomplishment_section_found=self.check_elements_by_xpath(self.driver,accomplishment_section_xpath_value)
 			if accomplishment_section_found==1:
-				accomplishment_section_element=self.find_nth_child(accomplishment_section_xpath_value,child_index=0)
+				accomplishment_section_element=self.find_nth_child(self.driver,accomplishment_section_xpath_value,child_index=0)
 
 				#Honors and Awards.
 				honors_and_awards_data=self.fetch_honors_and_awards_details(accomplishment_section_element)
@@ -674,8 +674,7 @@ class extract_linkedin_data:
 	#scrape the linkedin profile of the specified LinkedIn profile.
 	def scrape_linkedin_profile(self,profile_link):
 		try:
-			self.sign_in()
-
+			
 			self.driver.get(profile_link)
 			if not self.check_if_page_loaded():
 				return None
@@ -771,7 +770,10 @@ class extract_linkedin_data:
 			missed_profiles=[]
 			filename=f'kaggle_{section}_users_profile_dataframe.csv'
 			linkedin_profile_list=pd.read_csv(filename)['linkedin_profile_link'].values
-			for count,profile_link in enumerate(linkedin_profile_list[last_record_id+1:1000]):
+
+			self.sign_in()
+
+			for count,profile_link in enumerate(linkedin_profile_list[last_record_id+1:100]):
 				if isinstance(profile_link,str): #if the profile link is not of class 'str', it is a NaN value.
 					current_record_id=count+last_record_id+1
 					print(f'Count: {current_record_id}\nProfile link: {profile_link}')
@@ -784,10 +786,12 @@ class extract_linkedin_data:
 						print('Data could not be fetched from the specified linkedin profile.')
 						
 		except KeyboardInterrupt as stop_cell:
-			print('Stopping the cell')
+			print('Stopping program execution')
 		except stop_program_execution as stop_cell:
 			pass
 		except Exception as Error:
 			manage_exception(Error)
 linkedin_scraper=extract_linkedin_data()
 linkedin_scraper.scrape_multiple_linkedin_profiles('competitions')
+
+# LinkedIn authwall- https://www.linkedin.com/authwall
