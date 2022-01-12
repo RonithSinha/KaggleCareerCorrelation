@@ -128,8 +128,8 @@ def main(section):
 if __name__ == "__main__":
     try:
         section=sys.argv[1]
-        if section not in ['competitions','notebooks','datasets','discussion']:
-            error_message=f"Invalid section name '{section}'. Please enter either of the following: competitions,notebooks,datasets,discussion"
+        if section not in ['competitions','notebooks','datasets','discussions']:
+            error_message=f"Invalid section name '{section}'. Please enter either of the following: competitions,notebooks,datasets,discussions"
             raise InvalidSectionName(error_message)
         main(section=section)
     except KeyboardInterrupt:
