@@ -15,11 +15,14 @@ Steps:
     - python extract_kaggle_users_data.py datasets
     - python extract_kaggle_users_data.py notebooks
     - python extract_kaggle_users_data.py discussions
-3. Run "extract_linkedin_data.py" as follows:
+3. Ensure that mongodb is running on your system with the following command: sudo systemctl status mongod
+4. Run "extract_linkedin_data.py" as follows:
     - python extract_linkedin_data.py competitions
     - python extract_linkedin_data.py datasets
     - python extract_linkedin_data.py notebooks
     - python extract_linkedin_data.py discussions
+
+
 
 Or if you just want to view the data of one specific component of Kaggle, for example datasets, you can run:
     - python extract_kaggle_rankings_data.py datasets
