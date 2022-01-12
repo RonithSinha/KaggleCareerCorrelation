@@ -752,9 +752,8 @@ class extract_linkedin_data:
 	def scrape_multiple_linkedin_profiles(self,section):
 		try:
 			connection=create_database_connection('mongodb://localhost:27017/')
-			linkedin_database = connection.sample_linkedin_database
-			#collection_name=f'{section}_linkedin_data'
-			collection_name='linkedin_data_sample_collection'
+			linkedin_database = connection.linkedin_database
+			collection_name=f'{section}_linkedin_data'
 			linkedin_profile_data=linkedin_database[collection_name]
 
 			last_record=list(linkedin_profile_data.find().sort([('_id', -1)]).limit(1))
