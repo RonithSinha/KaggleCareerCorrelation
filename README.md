@@ -27,6 +27,6 @@ Or if you just want to view the data of one specific component of Kaggle, for ex
     - python extract_linkedin_data.py datasets
 in that order.
 
-After having completed these steps in this sequence, you will have a mongo database with the name linkedin_database which will comprise of collections having names following the format: {section}_linkedin_data (section can be replaced by either of "competitions","datasets","notebooks","discussions", whichever component's you would have extracted)
+After having completed these steps in this sequence, you will have a mongo database with the name linkedin_database which will comprise of collections having names following the format: {section}_linkedin_data (section can be replaced by either of "competitions","datasets","notebooks","discussions", whichever component's data you would have extracted)
 
 Then you can perform various data analysis techniques on these datasets and find the answer to our question :)
